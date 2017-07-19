@@ -8,6 +8,9 @@
             </a>
         </li>
       </TMPL_LOOP>
+        <li>
+	  <a href="#allservices" data-toggle="tab">all</a>
+	</li>
     </ul>
 
     <div id="munin_nodeview_tab" class="tab-content">
@@ -37,6 +40,34 @@
           </TMPL_LOOP>
         </div>
       </TMPL_LOOP>
+
+      <div class="tab-pane fade" id="allservices">
+	<TMPL_LOOP NAME="CATEGORIES">
+          <TMPL_LOOP NAME="SERVICES">
+            <div class="row">
+              <div class="col-md-6">
+                <a href="<TMPL_VAR NAME="URLX">">
+                  <img class="lazyload img-responsive i<TMPL_IF NAME="STATE_WARNING"> warn</TMPL_IF><TMPL_IF NAME="STATE_CRITICAL"> crit</TMPL_IF>"
+                   data-src="<TMPL_VAR NAME="IMGDAY">"
+                   alt="<TMPL_VAR ESCAPE="HTML" NAME="NAME">" 
+                   <TMPL_IF NAME="IMGDAYWIDTH">width="<TMPL_VAR NAME="IMGDAYWIDTH">" </TMPL_IF>
+                   <TMPL_IF NAME="IMGDAYHEIGHT">height="<TMPL_VAR NAME="IMGDAYHEIGHT">"</TMPL_IF>/>
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a href="<TMPL_VAR NAME="URLX">">
+                  <img class="lazyload img-responsive i<TMPL_IF NAME="STATE_WARNING"> warn</TMPL_IF><TMPL_IF NAME="STATE_CRITICAL"> crit</TMPL_IF>"
+                   data-src="<TMPL_VAR NAME="IMGWEEK">"
+                   alt="<TMPL_VAR ESCAPE="HTML" NAME="NAME">" 
+                   <TMPL_IF NAME="IMGWEEKWIDTH">width="<TMPL_VAR NAME="IMGWEEKWIDTH">" </TMPL_IF> 
+                   <TMPL_IF NAME="IMGWEEKHEIGHT">height="<TMPL_VAR NAME="IMGWEEKHEIGHT">"</TMPL_IF>/>
+                </a>
+              </div>
+            </div>
+          </TMPL_LOOP>
+	</TMPL_LOOP>
+      </div>
+
     </div>
 
 <TMPL_INCLUDE NAME="partial/footer_pre.tmpl">
