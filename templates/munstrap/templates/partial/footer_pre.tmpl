@@ -14,3 +14,58 @@
 <script src="<TMPL_VAR NAME="R_PATH">/static/js/lazysizes.min.js" async=""></script>
 <script src="<TMPL_VAR NAME="R_PATH">/static/js/bootstrap.min.js"></script>
 <script src="<TMPL_VAR NAME="R_PATH">/static/js/munstrap.min.js"></script>
+<script type="text/javascript">
+    (function(root, $) {
+	function constrainHeight() {
+	    var $el = $(this);
+
+	    var realWindowHeight = $(root).height();
+	    if (typeof(root.innerHeight) == 'number' && 
+	        $(root).height() < root.innerHeight)
+	        realWindowHeight = root.innerHeight;
+
+	    var curHeight = $el.height();
+	    var curOffsetTop;
+	    curOffsetTop = $el.offset().top;
+
+	    if (curOffsetTop == 0) {
+		$($el.siblings().get().concat($el.parents().get()))
+		    .each(function() {
+			// search for a sibling or ancestor that
+			// has an offset().top != 0
+			var offsetTop = $(this).offset().top;
+			var height = $(this).height();
+			if (offsetTop != 0) {
+			    curOffsetTop = offsetTop + height;
+			    return false;
+			}
+		    });
+	    }
+	    // account for navbar-fixed-top, half that for other elements
+	    var extraOffset = 50;
+	    if (curOffsetTop > 0)
+		extraOffset /= 2;
+	    var targetHeight = realWindowHeight - curOffsetTop - extraOffset;
+	    if (curHeight != targetHeight) {
+		$el.css('max-height', targetHeight);
+	    }
+	}
+	function set_scrollable_menu_height(){
+            $(".scrollable-menu").each(function() {
+		constrainHeight.call(this);
+	    });
+	}
+	set_scrollable_menu_height();
+	$(root).on('resize', set_scrollable_menu_height);
+	$('.scrollable-menu').each(function() {
+	    var $listContainer = $(this);
+	    var $listElements = $listContainer.children('li');
+	    $listElements.detach().sort(function(a, b) {
+		a = $(a).children('a').text();
+		b = $(b).children('a').text();
+		return a > b;
+	    });
+	    $listContainer.append($listElements);
+	});
+    }(this, jQuery));
+</script>

@@ -54,7 +54,8 @@ ul.groupview, ul.groupview ul {
 
 .dropdown-submenu > .dropdown-menu {
     top: 0;
-    left: 100%;
+    left: 50%;
+    min-width: 50%;
     margin-top: -6px;
     margin-left: -1px;
     -webkit-border-radius: 0 6px 6px 6px;
@@ -117,4 +118,10 @@ img.unkn {
 
 .text-critical:hover {
     color: #843534;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
 }
